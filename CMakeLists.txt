@@ -46,8 +46,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall ")
 
 # Set additional project information
 set(COMPANY "granjow")
-set(COPYRIGHT "Copyright (c) 2011 Simon A. Eugster (Granjow). All rights reserved.")
-set(IDENTIFIER "net.granjow.slomoui")
+set(COPYRIGHT "Copyright (c) 2011–2020 Simon A. Eugster (Granjow). All rights reserved.")
+set(IDENTIFIER "net.granjow.slowmovideo.v3d-flow-builder")
 
 else()
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -g")
@@ -71,117 +71,14 @@ endif(MSYS)
 ### Find packages ###
 
 
-# Check if environment variable QTDIR is set.
-# needed for Qt5
-# Extra security for windows environment as well.
-if (DEFINED ENV{QTDIR})
-    set(CMAKE_PREFIX_PATH $ENV{QTDIR} ${CMAKE_PREFIX_PATH})
-endif ()
-
 if (APPLE)
-				set(DEST "slowmoUI.app/Contents/Tools/bin")
+				set(DEST "v3d-flow-builder.app/Contents/Tools/bin")
 else()
 				set(DEST "bin")
 endif()
 
 include(cmake/macros.cmake)
 
-# search for Qt4
-if (NOT FORCE_QT4)
-         find_package(Qt5Core QUIET)
-         if (Qt5Core_FOUND) 
-                 message(STATUS "Using qt5")
-		 set(USE_QT TRUE)
-		 # go on with other packages
-		 find_package(Qt5 COMPONENTS Core Widgets Gui Xml Script)
-		if (Qt5_POSITION_INDEPENDENT_CODE)
-			set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-		endif(Qt5_POSITION_INDEPENDENT_CODE)
-#		 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}
-#		    ${Qt5Core_EXECUTABLE_COMPILE_FLAGS}")
-
-		 include_directories(${Qt5Core_INCLUDES}) 
-		 include_directories(${Qt5Widgets_INCLUDES}) 
-		 include_directories(${Qt5Gui_INCLUDES}) 
-		 include_directories(${Qt5Xml_INCLUDES}) 
-		 include_directories(${Qt5Script_INCLUDES}) 
-
-		 macro(qt_use_modules)
-		    qt5_use_modules(${ARGN})
-		 endmacro()
- 
-		 macro(qt_wrap_ui)
-		     qt5_wrap_ui(${ARGN})
-		 endmacro()
- 
-		 macro(qt_wrap_cpp)
-		     qt5_wrap_cpp(${ARGN})
-		 endmacro()
- 
-		 macro(qt_add_resources)
-		     qt5_add_resources(${ARGN})
-		 endmacro()
- 
-		 #find_package(Qt5LinguistTools REQUIRED)
-		 macro(qt_add_translation)
-		     qt5_add_translation(${ARGN})
-		 endmacro()
-
-		 macro(install_qt_executable)
-			install_qt5_executable(${ARGN})
-		 endmacro()
-	 endif(Qt5Core_FOUND)
-endif(NOT FORCE_QT4)
-
-#old qt4 ...
-if(NOT Qt5Core_FOUND) 
-
-# should replace :
-#SET(QT_USE_QTXML TRUE)
-#SET(QT_USE_QTSCRIPT TRUE)
-#find_package(Qt4)
-#include(${QT_USE_FILE})
-#include_directories(${QT_INCLUDES})
-
-     message(STATUS "Could not find Qt5, searching for Qt4 instead...")
- 
-     set(NEEDED_QT4_COMPONENTS "QtCore" "QtXml" "QtGui" "QtScript") 
- 
-     find_package(Qt4 REQUIRED COMPONENTS ${NEEDED_QT4_COMPONENTS})
-
-     macro(qt_use_modules)
- 
-     endmacro()
- 
-     macro(qt_wrap_ui)
-         qt4_wrap_ui(${ARGN})
-     endmacro()
- 
-     macro(qt_wrap_cpp)
-         qt4_wrap_cpp(${ARGN})
-     endmacro()
- 
-     macro(qt_add_resources)
-         qt4_add_resources(${ARGN})
-     endmacro()
- 
-     macro(qt_add_translation)
-         qt4_add_translation(${ARGN})
-     endmacro()
- 
-     macro(install_qt_executable)
-         install_qt4_executable(${ARGN})
-     endmacro()
-
-     include(${QT_USE_FILE})
-     add_definitions(${QT_DEFINITIONS})
- 
-     set(USE_QT TRUE)
-endif()
-
-message("Qt libraries found at : ${Qt5Gui_LIBRARIES} /  ${QT_LIBRARIES}" )
-
-set (USE_QTKIT OFF CACHE BOOL "Build with the QTKit encoder")
 set (USE_FFMPEG ON CACHE BOOL "Build with the FFMPEG encoder")
 set (USE_DBUS OFF CACHE BOOL "Build with the DBUS notification support")
 
@@ -201,7 +98,7 @@ if (APPLE AND USE_QTKIT)
 	message(STATUS "QTKIT find at ${QTKIT_LIBRARY} ")
 	set(ADDITIONAL_LIBS "-framework Cocoa -framework QTKit -framework QuartzCore -framework AppKit -framework OpenCL")
 endif()
-	
+
 # Find OpenCV, you may need to set OpenCV_DIR variable
 # to the absolute path to the directory containing OpenCVConfig.cmake file
 # via the command line or GUI
@@ -309,64 +206,64 @@ add_definitions(-DDISABLE_INCLUDE_SOURCE)
 endif(DISABLE_INCLUDE_SOURCE)
 
 
-if (BUILD_FLOW_BUILDER)
-    include_directories(${OPENGL_INCLUDE_DIR})
-    include_directories(${GLUT_INCLUDE_DIR})
-    include_directories(${GLEW_INCLUDE_DIR})
-    include_directories(${JPEG_INCLUDE_DIR})
-    include_directories(${ZLIB_INCLUDE_DIR})
-    include_directories(${PNG_INCLUDE_DIR})
+include_directories(${OPENGL_INCLUDE_DIR})
+include_directories(${GLUT_INCLUDE_DIR})
+include_directories(${GLEW_INCLUDE_DIR})
+include_directories(${JPEG_INCLUDE_DIR})
+include_directories(${ZLIB_INCLUDE_DIR})
+include_directories(${PNG_INCLUDE_DIR})
 
 
-    set (V3D_DIR ${CMAKE_CURRENT_SOURCE_DIR}/V3D)
-    set (V3D_INCLUDE_DIRS ${V3D_DIR}/.)
+set (V3D_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+set (V3D_INCLUDE_DIRS ${V3D_DIR}/.)
 
-    include (cmake/v3d_macros.cmake)
-    include_directories(${V3D_INCLUDE_DIRS} ${EXTRA_INC_DIRS})
+include (cmake/v3d_macros.cmake)
+include_directories(${V3D_INCLUDE_DIRS} ${EXTRA_INC_DIRS})
 
-    add_definitions(-DDISABLE_REDEFINITIONS)
-    #--------------------------------------------------
-    enable_feature (V3DLIB_ENABLE_LIBJPEG)
-    enable_feature (V3DLIB_ENABLE_LIBPNG)
-    enable_feature_libraries (V3DLIB_ENABLE_LIBJPEG ${JPEG_LIBRARIES})
-    enable_feature_libraries (V3DLIB_ENABLE_LIBPNG ${PNG_LIBRARIES})
+add_definitions(-DDISABLE_REDEFINITIONS)
+#--------------------------------------------------
+enable_feature (V3DLIB_ENABLE_LIBJPEG)
+enable_feature (V3DLIB_ENABLE_LIBPNG)
+enable_feature_libraries (V3DLIB_ENABLE_LIBJPEG ${JPEG_LIBRARIES})
+enable_feature_libraries (V3DLIB_ENABLE_LIBPNG ${PNG_LIBRARIES})
 
-    enable_feature (V3DLIB_ENABLE_GPGPU)
-    enable_feature_libraries (V3DLIB_ENABLE_GPGPU ${OPENGL_LIBRARIES})
-    enable_feature_libraries (V3DLIB_ENABLE_GPGPU ${GLEW_LIBRARIES})
-    enable_feature_libraries (V3DLIB_ENABLE_GPGPU ${GLUT_glut_LIBRARY})
-    #--------------------------------------------------
+enable_feature (V3DLIB_ENABLE_GPGPU)
+enable_feature_libraries (V3DLIB_ENABLE_GPGPU ${OPENGL_LIBRARIES})
+enable_feature_libraries (V3DLIB_ENABLE_GPGPU ${GLEW_LIBRARIES})
+enable_feature_libraries (V3DLIB_ENABLE_GPGPU ${GLUT_glut_LIBRARY})
+#--------------------------------------------------
 
 
-    include_directories(V3D/Config)
+include_directories(V3D/Config)
 
-    set (GL_SRC
-        src/GL/glsl_shaders.cpp
-        src/GL/v3d_gpubase.cpp
-        src/GL/v3d_gpuflow.cpp
-        src/GL/v3d_gpucolorflow.cpp
-        src/GL/v3d_gpupyramid.cpp
-    )
+set (GL_SRC
+	src/GL/glsl_shaders.cpp
+	src/GL/v3d_gpubase.cpp
+	src/GL/v3d_gpuflow.cpp
+	src/GL/v3d_gpucolorflow.cpp
+	src/GL/v3d_gpupyramid.cpp
+)
 
-    set (ALL_SRC
-        ${GL_SRC}
-        src/Config/config.h
-        
-        src/Base/v3d_image.cpp
-        src/Base/v3d_imageprocessing.h
-        src/Base/v3d_exception.h
-        src/Base/v3d_timer.h
-        src/Base/v3d_serialization.h
-        src/Base/v3d_utilities.h
-        src/Math/v3d_linear.h
-        src/Math/v3d_linearbase.h
-    )
+set (ALL_SRC
+	${GL_SRC}
+	src/Config/config.h
 
-    add_library(V3D STATIC ${ALL_SRC})
-    target_link_libraries(V3D ${GLEW_LIBRARIES} X11)
-    #install(TARGETS V3D DESTINATION lib)
-    add_subdirectory(src/Apps)
-endif (BUILD_FLOW_BUILDER)
+	src/Base/v3d_image.cpp
+	src/Base/v3d_imageprocessing.h
+	src/Base/v3d_exception.h
+	src/Base/v3d_timer.h
+	src/Base/v3d_serialization.h
+	src/Base/v3d_utilities.h
+	src/Math/v3d_linear.h
+	src/Math/v3d_linearbase.h
+    src/lib/libsvflow/src/flowField_sV.h
+    src/lib/libsvflow/src/flowRW_sV.h
+)
+
+add_library(V3D STATIC ${ALL_SRC})
+target_link_libraries(V3D ${GLEW_LIBRARIES} X11)
+#install(TARGETS V3D DESTINATION lib)
+add_subdirectory(src/Apps)
 
 ##### V3D END #####
 

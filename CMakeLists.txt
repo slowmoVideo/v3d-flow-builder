@@ -263,7 +263,7 @@ set (ALL_SRC
 add_library(V3D STATIC ${ALL_SRC})
 target_link_libraries(V3D ${GLEW_LIBRARIES} X11)
 #install(TARGETS V3D DESTINATION lib)
-add_subdirectory(src/Apps)
+add_subdirectory(src/)
 
 ##### V3D END #####
 

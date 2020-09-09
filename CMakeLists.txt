@@ -318,7 +318,7 @@ message("* (info) installation goes to ${CMAKE_INSTALL_PREFIX}.")
 message("         (Can be adjusted with -DCMAKE_INSTALL_PREFIX=your_path. Default is ${SV_INST_DIR}.)")
 
 if(NOT BUILD_FLOW_BUILDER)
-    error(WARNING "Cannot build V3D.")
+    message(WARNING "Cannot build V3D.")
 endif(NOT BUILD_FLOW_BUILDER)
 
 configure_file(src/config.h.in config.h)

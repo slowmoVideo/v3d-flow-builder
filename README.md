@@ -7,6 +7,8 @@ It can be used by slowmoVideo.
 
 ## Building
 
+On Ubuntu 20.04, install the requirements `freeglut3-dev libglew-dev`
+
 ```bash
 git submodule update --init
 mkdir build

@@ -7,7 +7,7 @@ It can be used by slowmoVideo.
 
 ## Building
 
-On Ubuntu 20.04, install the requirements `freeglut3-dev libglew-dev`
+On Ubuntu 20.04, install the requirements `freeglut3-dev libopencv-dev libglew-dev `
 
 ```bash
 git submodule update --init

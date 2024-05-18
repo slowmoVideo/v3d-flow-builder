@@ -10,9 +10,13 @@ It can be used by slowmoVideo.
 On Ubuntu 20.04, install the requirements `freeglut3-dev libopencv-dev libglew-dev `
 
 ```bash
-git submodule update --init
+git submodule update --init --remote
 mkdir build
 cd build
 cmake ..
 make
+
+# use compiled binary at v3d-flow-builder/build/src/slowmoFlowBuilder
+# or install:
+sudo make install
 ```

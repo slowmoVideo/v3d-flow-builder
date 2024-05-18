@@ -1,4 +1,4 @@
-include_directories(${V3D_INCLUDE_DIRS} ${EXTRA_INC_DIRS} lib/libsvflow/src)
+include_directories(${V3D_INCLUDE_DIRS} ${EXTRA_INC_DIRS} lib/libsvflow/include)
 link_directories(${V3D_DIR} ${EXTRA_LIB_DIRS})
 link_libraries (V3D ${EXTRA_LIBRARIES})
 

@@ -256,8 +256,8 @@ set (ALL_SRC
 	src/Base/v3d_utilities.h
 	src/Math/v3d_linear.h
 	src/Math/v3d_linearbase.h
-    src/lib/libsvflow/src/flowField_sV.h
-    src/lib/libsvflow/src/flowRW_sV.h
+    src/lib/libsvflow/include/flowField_sV.h
+    src/lib/libsvflow/include/flowRW_sV.h
 )
 
 add_library(V3D STATIC ${ALL_SRC})

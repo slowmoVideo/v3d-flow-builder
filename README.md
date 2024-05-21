@@ -25,10 +25,15 @@ sudo make install
 
 ### Docker
 
-```bash
-# Build the docker image which will build v3d-flow-builder
-docker build . -name v3d-builder
+You can build slowmoFlowBuilder with Docker for different target systems.
+Currently, Ubuntu 20.04 and Ubuntu 22.04 are supported.
 
-# Build v3d-flow-builder inside the docker image
+```bash
+# Build the docker image which will build slowmoFlowBuilder
+# For Ubuntu 20.04: use Dockerfile-ubuntu2004 instead
+docker build . -name v3d-builder -f Dockerfile-ubuntu2204
+
+# Build v3d-flow-builder inside the docker image.
+# The executable will be copied to the working directory.
 docker run -it --rm -v $(pwd):/_build -u $(id -u) v3d-builder
 ```

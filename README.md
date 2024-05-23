@@ -31,7 +31,7 @@ Currently, Ubuntu 20.04 and Ubuntu 22.04 are supported.
 ```bash
 # Build the docker image which will build slowmoFlowBuilder
 # For Ubuntu 20.04: use Dockerfile-ubuntu2004 instead
-docker build . -name v3d-builder -f Dockerfile-ubuntu2204
+docker build . -t v3d-builder -f Dockerfile-ubuntu2204
 
 # Build v3d-flow-builder inside the docker image.
 # The executable will be copied to the working directory.

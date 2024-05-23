@@ -15,4 +15,8 @@ mkdir build
 cd build
 cmake ..
 make
+
+# use compiled binary at v3d-flow-builder/build/src/slowmoFlowBuilder
+# or install:
+sudo make install
 ```

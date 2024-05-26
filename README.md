@@ -7,12 +7,21 @@ It can be used by slowmoVideo.
 
 ## Building
 
+Before building, get the latest version with the following command:
+
+```bash
+# Get the latest commit of this branch
+git pull --rebase
+
+# Update the libSvFlow submodule to the correct commit
+git submodule update --init
+```
+
 ### Ubuntu 20.04
 
 On Ubuntu 20.04, install the requirements `freeglut3-dev libopencv-dev libglew-dev `
 
 ```bash
-git submodule update --init
 mkdir build
 cd build
 cmake ..
